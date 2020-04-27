@@ -1,0 +1,104 @@
+//instalamos serverLess    		----->  https://serverless.com/framework/docs/providers/aws/guide/installation/
+yarn global add serverless
+//Referencia de el archivo serverless.yml  --------> https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/
+
+
+//atajo de server less ----> sls
+sls --help
+
+//para configurar las credenciales  --------> https://serverless.com/framework/docs/providers/aws/cli-reference/config-credentials/
+//AKIAJLS2FXV2B5EMLEYA lo obtengo de aws en credentials 
+//NMd3FslLCnExMA9OmSzLwbBv0inunTN3HXgzS4md lo obtengo de credentials en aws
+serverless config credentials --provider aws --key AKIAJLS2FXV2B5EMLEYA --secret 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--profile custom-profile
+
+//verificamos que se hallan guardado las credenciales
+cat ~/.aws/credentials
+
+//creacion de un proyecto
+sls create --template aws-nodejs --name curso-sls-hola-mundo
+
+//hacer deploy de la aplicacion
+sls deploy
+
+//Para ejecutar la funcion en remoto (amazon)
+//dev es el entorno
+//fello es la funcion
+sls invoke -f hello -s dev
+
+//para ejecutar la funcion en local
+sls invoke local -f hello -s dev
+
+//para ejecutar la funcion en local pasandole un dato
+sls invoke local -f hello -s dev -d "Hola Mundo"
+//para ejecutar la funcion en local pasandole un objeto
+sls invoke local -f hello -s dev -d '{"name":"deabreu"}'
+//para hacer el deploy actualizando los cambios que se hicieron en local
+//solamente va subir el contenido de la funcion hello en este cado
+sls deploy -f hello -s dev
+
+
+////////////utilizar pluying serverlees ofline  serverless-offline
+- es lo mismo que hace aws con api gateway pero en local es fantastico para no consumir servicios de aws
+-  evitamos gastos y lo tenemos configurado de forma mas rapida
+//comando para instalacion
+npm install --save serverless-offline
+yarn add serverless-offline --save
+//para probar que instalamos bien serverless-offline hacemos
+sls offline
+
+//////////Utilizat plugins serverless para ahorrar megas 
+- evitamos que nos cobre amazon por las tranferencias
+npm install serverless-plugin-include-dependencies --save-dev
+yarn add serverless-plugin-include-dependencies --save-dev
+
+
+///////////Paquete para recoger los string de peticiones post
+yarn add querystring --save
+
+//////////Instruccion para remover todo en amazon y no me cobren nada
+sls remove
+
+/////////Instalar paquete para medir fortaleza de un pasword
+npm install zxcvbn
+yarn add zxcvbn --save
+
+/////////Instalar paquete express y serverless-http para trabajar con rutas
+npm install --save express serverless-http
+yarn add express serverless-http --save
+
+////////Instalacion de aws-sdk y  body parser
+- aws-sdk nos va apermitir interactuar con dynamoDB
+- body parser es un midelware que nos permite parsear los datos de entrada a nuestra aplicacion
+npm install --save aws-sdk body-parser
+yarn add aws-sdk body-parser --save
+
+
+///////////////ver logs en aws
+en la seccion de cloudwatch///Registros puedo ver los logs
+
+///////Instalar plugin de dynamoDBen local
+//requiere Java Runtime Engine (JRE) version 6.x o superior
+npm install --save-dev serverless-offline serverless-dynamodb-local
+yarn add serverless-offline serverless-dynamodb-local --save
+//Instalamos dynamodb
+sls dynamodb install
+//Lo ejecutamos
+sls offline start
+
+
+/////////////documentacion de VPC (Amazon virtual private clond)
+https://docs.aws.amazon.com/es_es/vpc/latest/userguide/VPC_Subnets.html
+
+
+/////////instalamos mysql querystring
+npm install --save mysql querystring serverless-offline
+yarn add mysql querystring serverless-offline --save
+
+
+//////Instalamos express y para subir archivos al s3 multer multer-s3
+//serverless-apigw-binar nos sirve para subir imagenes al apiway
+yarn add aws-sdk express multer multer-s3 serverless-apigw-binary serverlees-http
+
+
+
+
